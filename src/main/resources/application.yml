@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  jooq:
+    sql-dialect: H2
+  application:
+    name: transactions
+  datasource:
+    username: db
+    password: db
+    url: jdbc:h2:mem:db;INIT=RUNSCRIPT FROM 'src/main/resources/h2init.sql';
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+      path: /h2

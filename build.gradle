@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'org.springframework.boot' version '3.3.2'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id "org.springdoc.openapi-gradle-plugin" version "1.9.0"
+}
+
+group = 'com.chrzanowy'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    lombokVersion = '1.18.34'
+    restAssuredVersion = '5.5.0'
+    groovyVersion = '2.4-M1-groovy-4.0'
+    zalandoMoneyVersion = '1.3.0'
+    javaMoneyVersion = '1.4.4'
+    jackonVersion = '2.17.2'
+}
+
+dependencies {
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation "org.javamoney:moneta:$javaMoneyVersion"
+    implementation 'org.jooq:jooq'
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jackonVersion"
+    implementation "org.zalando:jackson-datatype-money:$zalandoMoneyVersion"
+    runtimeOnly 'com.h2database:h2'
+
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.spockframework:spock-core:$groovyVersion"
+    testImplementation "org.spockframework:spock-spring:$groovyVersion"
+    testImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "started", "passed", "skipped", "failed"
+    }
+}
